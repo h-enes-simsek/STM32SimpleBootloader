@@ -1,13 +1,14 @@
 # Super Simple Bootloder for STM32
 
 Youtube channel of the STMicroelectronics made a tutorial about bootloaders in [link](https://www.youtube.com/watch?v=OkUQ3iMmiYQ&list=PLnMKNibPkDnEb1sphpdFJ3bR9dNy7S6mO&ab_channel=STMicroelectronics),
-and coded a very basic bootloader for NUCLEO-F429ZI according to it.
+and I've coded a very basic bootloader for NUCLEO-F429ZI according to it.
 
-You can find this README file as a blog post as well in [my blog].
+You can find this README file as a blog post as well in [my blog](https://hesimsek.com/blog/2022/12/21/stm32-bootloader/).
 
 ## Summary of the Tutorial
 
 According to the design, there are two STM32 projects, one for the bootloader and one for the application that will be jumped from the bootloader.
+Bootloader will blink red led for a one second and will jump to the app. The app will blink green led for a one second. 
 
 ## Memory Overview
 
@@ -22,7 +23,9 @@ We can allocate 32 KB in Flash for the bootloader. The rest of it can be used by
 ## Linker Scripts
 
 The first thing we do is to set linker scripts to organize memory.
+
 STM32F429ZITX_FLASH.ld is the correct script to modify.
+
 STM32F429ZITX_RAM.ld is to make the program run on RAM only which is not the case.
 
 This is the default memory definition for Nucleo-F429ZI.
@@ -49,10 +52,15 @@ MEMORY
 ```
 
 The application has the following memory definition.
+
 It will use 2048-32=2016 KB Flash memory.
+
 The application address starts after the bootloader.
+
 32KB = 32768 Bytes.
+
 32768 = 0x8000
+
 0x8000000+0x8000 = 0x8008000
 
 ```
